@@ -1,0 +1,13 @@
+{% extends "users/base.html" %}
+{% block content %}
+    <div class="content-section">
+        <a href="{% url 'student_sign_up' %}"><button type="button" class="btn btn-light btn-lg">I am a Student</button></a>
+        <br>
+        <a href="{% url 'instructor_sign_up' %}"><button type="button" class="btn btn-light btn-lg">I am an Instructor</button></a>
+        <div class="border-top pt-3">
+            <small class="text-muted">
+                Already have an account? <a class="ml-2" href="{% url 'login' %}">Sign In</a>
+            </small>
+        </div>
+    </div>
+{% endblock content %}
