@@ -5,7 +5,8 @@ from django.db.models.signals import post_save
 
 
 class Departments(models.Model):
-    name = models.CharField(max_length=100, null=True, default="")
+    name = models.CharField(max_length=100, null=True, default="", unique=True)
+    department_code = models.CharField(max_length=5, null=True, default="", unique=True)
 
     class Meta:
         verbose_name = 'Department'
@@ -36,7 +37,7 @@ class Courses(models.Model):
         verbose_name_plural = 'Courses'
 
     def __str__(self):
-        return self.name
+        return self.course_code
 
 
 #-------------------------------------------------------------------------------------------
@@ -46,6 +47,7 @@ class User(AbstractUser):
     name = models.CharField(max_length=255, null=True, default='')
     email = models.EmailField(unique=True)
     is_student = models.BooleanField(default=False)
+    is_instructor = models.BooleanField(default=False)
     department = models.ForeignKey(Departments, null=True, on_delete=models.SET_NULL)
     avatar = models.ImageField(default='default.jpg', upload_to='profile_pics')
 
@@ -67,9 +69,10 @@ class StudentProfile(models.Model):
             null=True,
             related_name='student_profile',
         )
+    user.is_student = True
     programme = models.ForeignKey(Programme, null=True, on_delete=models.SET_NULL)
-    entry_num = models.CharField(max_length=11, null=True)
-    kerberos_id = models.CharField(max_length=9, null=True)
+    entry_num = models.CharField(max_length=11, null=True, verbose_name='Entry Number')
+    kerberos_id = models.CharField(max_length=9, null=True, verbose_name='Kerberos ID')
     courses = models.ManyToManyField(Courses)
 
     class Meta:
@@ -87,6 +90,7 @@ class InstructorProfile(models.Model):
             null=True,
             related_name='instructors_profile',
         )
+    user.is_instructor = True
     is_head_of_department = models.BooleanField(default=False)
     courses = models.ManyToManyField(Courses)
 
@@ -98,19 +102,3 @@ class InstructorProfile(models.Model):
         return self.user.name
 
 
-@receiver(post_save, sender=User)
-def create_user_profile(sender, instance, created, **kwargs):
-	print('****', created)
-	if instance.is_student:
-		StudentProfile.objects.get_or_create(user = instance)
-	else:
-		InstructorProfile.objects.get_or_create(user = instance)
-	
-
-@receiver(post_save, sender=User)
-def save_user_profile(sender, instance, **kwargs):
-	print('_-----')	
-	if instance.is_student:
-		instance.student_profile.save()
-	else:
-		InstructorProfile.objects.get_or_create(user = instance)

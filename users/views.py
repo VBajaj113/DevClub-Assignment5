@@ -14,8 +14,16 @@ def StudentSignUp(request):
         student_form = StudentProfileForm(request.POST)
 
         if user_form.is_valid() and student_form.is_valid():
-            user_form.save()
-            student_form.save()
+            user = user_form.save(commit=False)
+            user.is_student = True
+            user.username = user.email.split('@')[0]
+            user.first_name = user.name.split()[0]
+            user.last_name = user.name.split()[-1]
+            user.save()
+
+            studentprofile = student_form.save(commit=False)
+            studentprofile.user = user
+            studentprofile.save()
             name = user_form.cleaned_data.get('name')
             messages.success(request, f'Account created for {name}! Please LogIn to continue.')
             return redirect('login')
@@ -33,10 +41,19 @@ def InstructorSignUp(request):
         instructor_form = InstructorProfileForm(request.POST)
 
         if user_form.is_valid() and instructor_form.is_valid():
-            user_form.save()
-            instructor_form.save()
+            user = user_form.save(commit=False)
+            user.is_instructor = True
+            user.username = user.email.split('@')[0]
+            user.first_name = user.name.split()[0]
+            user.last_name = user.name.split()[-1]
+            user.save()
+
+            instructorprofile = instructor_form.save(commit=False)
+            instructorprofile.user = user
+            instructorprofile.save()
+
             name = user_form.cleaned_data.get('name')
-            messages.success(request, f'Your account has been created! Please LogIn to continue.')
+            messages.success(request, f'Account created for {name}! Please LogIn to continue.')
             return redirect('login')
 
     else:
