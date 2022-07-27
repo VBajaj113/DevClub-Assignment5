@@ -3,6 +3,7 @@ from django.forms import ModelForm, PasswordInput
 from django.contrib.auth.forms import UserCreationForm, UsernameField
 from django.contrib.auth.models import User
 from .models import *
+from django.contrib.auth.password_validation import validate_password
 
 
 class UserForm(ModelForm):
@@ -21,6 +22,8 @@ class UserForm(ModelForm):
 
         if password != confirm_password:
             self.add_error('confirm_password', "Password does not match")
+        
+        validate_password(password)
 
         return cleaned_data
 

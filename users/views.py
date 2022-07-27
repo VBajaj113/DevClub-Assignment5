@@ -15,10 +15,12 @@ def StudentSignUp(request):
 
         if user_form.is_valid() and student_form.is_valid():
             user = user_form.save(commit=False)
+            password = user_form.cleaned_data.get('password')
             user.is_student = True
             user.username = user.email.split('@')[0]
             user.first_name = user.name.split()[0]
             user.last_name = user.name.split()[-1]
+            user.set_password(password)
             user.save()
 
             studentprofile = student_form.save(commit=False)
@@ -42,10 +44,12 @@ def InstructorSignUp(request):
 
         if user_form.is_valid() and instructor_form.is_valid():
             user = user_form.save(commit=False)
+            password = user_form.cleaned_data.get('password')
             user.is_instructor = True
             user.username = user.email.split('@')[0]
             user.first_name = user.name.split()[0]
             user.last_name = user.name.split()[-1]
+            user.set_password(password)
             user.save()
 
             instructorprofile = instructor_form.save(commit=False)

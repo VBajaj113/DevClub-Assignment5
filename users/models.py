@@ -19,13 +19,14 @@ class Departments(models.Model):
 class Programme(models.Model):
     name = models.CharField(max_length=100, null=True, default="")
     department = models.ForeignKey(Departments, null=True, on_delete=models.CASCADE)
+    programme_code = models.CharField(max_length=5, null=True, default="")
 
     class Meta:
         verbose_name = 'Programme'
         verbose_name_plural = 'Programmes'
 
     def __str__(self):
-        return self.name
+        return self.programme_code
 
 
 class Courses(models.Model):
@@ -69,7 +70,6 @@ class StudentProfile(models.Model):
             null=True,
             related_name='student_profile',
         )
-    user.is_student = True
     programme = models.ForeignKey(Programme, null=True, on_delete=models.SET_NULL)
     entry_num = models.CharField(max_length=11, null=True, verbose_name='Entry Number')
     kerberos_id = models.CharField(max_length=9, null=True, verbose_name='Kerberos ID')
@@ -90,7 +90,6 @@ class InstructorProfile(models.Model):
             null=True,
             related_name='instructors_profile',
         )
-    user.is_instructor = True
     is_head_of_department = models.BooleanField(default=False)
     courses = models.ManyToManyField(Courses)
 
