@@ -1,12 +1,15 @@
 # DevClub Assignment 5
 
 You have learnt about backend engineering with Django in our session. Now use it to create a web application by yourself!
+
 ## DevClub LMS (Learning Management System)
+
 You must have used **Moodle** in your courses, where both instructors and students login, and for each course, the instructor uses the platform to share resources, send announcements, release grades, conduct quizzes and what not!
 
 Your task is to create your own such a learning management system using Django, where you can add functionalities as per your own creativity!
 
-### We would recommend you to have these apps inside the project: 
+### We would recommend you to have these apps inside the project:
+
 - Users (to store auth logic, and models for `Instructor`, `Student`, `Course`, `Admin`)
 - Grades (to store logic for sharing grades for any assessment, and models for let's say a class `Grade`)
 - Documents (for Instructor to upload `Docs` like lecture notes for the course)
@@ -16,6 +19,7 @@ Your task is to create your own such a learning management system using Django, 
 Try to implement as many features as you can, but make sure to plan the structure of the project and database schemas well!
 
 ### Bonus:
+
 - Deploy on Heroku
 - Create documentation for any RESTful APIs created with documenter on postman
 - Markdown support for Communication
@@ -25,6 +29,7 @@ Try to implement as many features as you can, but make sure to plan the structur
 - Add security features for the quizzes
 
 ## Submission Instructions
+
 - **FORK** this repository, by clicking the "Fork" button on top right
 - `clone` the forked repo into your machine, and `cd` into the Repo Folder such that you are in same directory level as `manage.py`
 - If on macOS, run `python3 -m venv env`, otherwise `python -m venv env`
@@ -39,10 +44,11 @@ Try to implement as many features as you can, but make sure to plan the structur
 - You do NOT need to make any pull requests to this repo
 
 # Resources
+
 - [Slides used in the session](https://docs.google.com/presentation/d/e/2PACX-1vQbtDDGQonkIoGu68VrINL2s3sQcfiH5XVnk-iU26nk16DFBGsDabichsqhdtBvowPvpxaIbFLAV2h3/pub?slide=id.p)
 - Introduction to Python and Django by [Programming With Mosh](https://youtu.be/_uQrJ0TkZlc)
 - Detailed Django Tutorials by [Corey Schafer](https://www.youtube.com/playlist?list=PL-osiE80TeTtoQCKZ03TU5fNfx2UY6U4p)
-- [Mozilla's Tutorials](https://developer.mozilla.org/en-US/docs/Learn/Server-side) on Server Side Programming with Django
+- [Mozilla&#39;s Tutorials](https://developer.mozilla.org/en-US/docs/Learn/Server-side) on Server Side Programming with Django
 - [Django Official Docs](https://www.djangoproject.com/start/)
 - [Talk](https://youtu.be/lx5WQjXLlq8) on how Instagram uses Django at production, and also [*the time when Justin Beiber almost crashed Instagram!*](https://youtu.be/lx5WQjXLlq8?t=715)
 - Advice on Backend Engineering by [Hussein Nasser](https://www.youtube.com/c/HusseinNasser-software-engineering)

@@ -38,3 +38,11 @@ class InstructorProfileForm(ModelForm):
     class Meta:
         model = InstructorProfile
         fields = ['courses', 'is_head_of_department']
+
+
+class UserProfileForm(ModelForm):
+    password = forms.CharField(widget=forms.PasswordInput())
+    confirm_password=forms.CharField(widget=forms.PasswordInput())
+    class Meta:
+        model = User
+        fields = ['name', 'email', 'password', 'confirm_password', 'avatar', 'department', ]

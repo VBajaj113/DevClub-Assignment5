@@ -1,11 +1,12 @@
 from django.shortcuts import redirect, render
-from .models import StudentProfile, InstructorProfile, User
+from django.contrib.auth.decorators import login_required
 from .forms import *
 from django.contrib import messages
+from PIL import Image
 
 
 def register(request):
-    return render(request, "users/register.html")
+    return render(request, "users/register.html", {'title':'Registration'})
 
 
 def StudentSignUp(request):
@@ -34,7 +35,7 @@ def StudentSignUp(request):
         user_form = UserForm()
         student_form = StudentProfileForm()
 
-    return render(request, "users/StudentRegistration.html", {'user_form':user_form, 'student_form':student_form})
+    return render(request, "users/StudentRegistration.html", {'user_form':user_form, 'student_form':student_form, 'title':'Student Registration'})
 
 
 def InstructorSignUp(request):
@@ -64,7 +65,50 @@ def InstructorSignUp(request):
         user_form = UserForm()
         instructor_form = InstructorProfileForm()
 
-    return render(request, "users/InstructorRegistration.html", {'user_form':user_form, 'instructor_form':instructor_form})
+    return render(request, "users/InstructorRegistration.html", {'user_form':user_form, 'instructor_form':instructor_form, 'title':'Instructor Registration'})
 
 
-#profile
+@login_required
+def profile(request):
+    if request.method == 'POST':
+        u_form = UserProfileForm(request.POST, instance=request.user)
+        if request.user.is_student:
+            p_form = StudentProfileForm(request.POST, request.FILES, instance=request.user.student_profile)
+        else:
+            p_form = InstructorProfileForm(request.POST, request.FILES, instance=request.user.instructor_profile)
+        
+        if u_form.is_valid() and p_form.is_valid():
+            user = u_form.save(commit=False)
+            password = u_form.cleaned_data.get('password')
+            user.username = user.email.split('@')[0]
+            user.first_name = user.name.split()[0]
+            user.last_name = user.name.split()[-1]
+            user.set_password(password)
+            user.avatar = request.FILES['avatar']
+            user.save()
+            
+            if request.user.is_student:
+                studentprofile = p_form.save(commit=False)
+                studentprofile.user = user
+                studentprofile.save()
+            else:
+                instructorprofile = p_form.save(commit=False)
+                instructorprofile.user = user
+                instructorprofile.save()
+
+            messages.success(request, f'Your account has been updated!')
+            return redirect('profile')
+
+    else:
+        u_form = UserProfileForm(instance=request.user)
+        if request.user.is_student:
+            p_form = StudentProfileForm(instance=request.user.student_profile)
+        else:
+            p_form = InstructorProfileForm(instance=request.user.instructor_profile)
+
+    context = {
+        'u_form':u_form,
+        'p_form':p_form,
+        'title':'Profile',
+    }
+    return render(request, 'users/profile.html', context)

@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.dispatch import receiver
-from django.db.models.signals import post_save
+from PIL import Image
 
 
 class Departments(models.Model):
@@ -88,7 +88,7 @@ class InstructorProfile(models.Model):
             User, 
             on_delete=models.CASCADE, 
             null=True,
-            related_name='instructors_profile',
+            related_name='instructor_profile',
         )
     is_head_of_department = models.BooleanField(default=False)
     courses = models.ManyToManyField(Courses)
