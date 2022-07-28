@@ -119,3 +119,12 @@ def profile(request):
         'title':'Profile',
     }
     return render(request, 'users/profile.html', context)
+
+
+@login_required
+def homepage(request):
+    return render(request, 'users/home.html')
+
+
+def about(request):
+    return render(request, 'users/about.html')

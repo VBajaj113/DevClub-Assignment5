@@ -1,0 +1,45 @@
+{% extends "users/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <h1>Home</h1>
+    {% if user.is_student %}
+        <h3>Student Courses</h3>
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            {% for course in user.student_profile.courses.all %}
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ course.course_code }}</h5>
+                            <p class="secondary">{{ course.name }}</p>
+                            <p class="card-text">**Description**</p>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">**Last updated**</small>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            <br>
+        </div>
+    {% endif %}
+    {% if user.is_instructor %}
+        <h3>Instructor Courses</h3>
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            {% for course in user.instructor_profile.courses.all %}
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ course.course_code }}</h5>
+                            <p class="secondary">{{ course.name }}</p>
+                            <p class="card-text">**Description**</p>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">**Last updated**</small>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            <br>
+        </div>
+    {% endif %}
+{% endblock content %}
