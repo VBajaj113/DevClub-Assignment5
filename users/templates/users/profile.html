@@ -3,10 +3,14 @@
 {% block content %}
     <div class="content-section">
         <div class="media">
-            <img src="{{ user.avatar.url }}" class="rounded-circle account-img">
-            <div class="media-body">
-                <h2 class="account-heading">{{ user.name }}</h2>
-                <p class="text-secondary">{{ user.email }}</p>
+            <div class="profile-card text-center shadow bg-light p-4 my-5 rounded-3">
+                <div class="profile-photo shadow">
+                    <img src="{{ user.avatar.url }}" class="image-fluid image-thumbnail rounded-circle account-img">
+                    <div class="media-body">
+                        <h2 class="account-heading">{{ user.name }}</h2>
+                        <p class="text-secondary">{{ user.email }}</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

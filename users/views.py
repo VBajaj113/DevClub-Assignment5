@@ -84,8 +84,15 @@ def profile(request):
             user.first_name = user.name.split()[0]
             user.last_name = user.name.split()[-1]
             user.set_password(password)
-            user.avatar = request.FILES['avatar']
-            user.save()
+            try:
+                user.avatar = request.FILES['avatar']
+                user.save()
+                img = Image.open(user.avatar.path)
+                img.thumbnail((300,300))
+                img.save(user.avatar.path)
+            except:
+                user.save()
+            
             
             if request.user.is_student:
                 studentprofile = p_form.save(commit=False)
