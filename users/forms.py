@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm, PasswordInput
-from django.contrib.auth.forms import UserCreationForm, UsernameField
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from .models import *
 from django.contrib.auth.password_validation import validate_password

@@ -3,18 +3,18 @@
 {% block content %}
     <h1>CoursePage</h1>
     <div class="border-top pt-4">
-        <h1>{{ title }}</h1>
+        <h2>{{ title }}</h2>
         {% if user.is_student %}
             {% for course in user.student_profile.courses.all %}
                 {% if title == course.course_code %}
-                    <h2>{{ course.name }}</h2>
+                    <h3>{{ course.name }}</h3>
                     <br>
-                    <h3>Student Grades</h3>
+                    <h4>Student Grades</h4>
                     {% for exam in course.exams_set.all %}
                         <div class="border-top pt-3">
                             {% for u in exam.studentgrade_set.all %}
                                 {% if u.student.user == user %}
-                                    <h3>{{ exam.name }}</h3>
+                                    <h5>{{ exam.name }}</h5>
                                     <p>Marks Obtained : {{ u.marks_obtained }}</p>
                                     <p>Maximum Marks : {{ u.max_marks }}</p>
                                 {% endif %}
