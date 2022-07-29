@@ -19,6 +19,7 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from users import views as user_views
+from grades import views as grade_views
 
 
 urlpatterns = [
@@ -31,6 +32,7 @@ urlpatterns = [
     path('profile/', user_views.profile, name='profile'),
     path('', user_views.homepage, name='home'),
     path('about/', user_views.about, name='about'),
+    path('course/<slug:course_title>/', grade_views.coursepage, name='course_page'),
 ]
 
 if settings.DEBUG:

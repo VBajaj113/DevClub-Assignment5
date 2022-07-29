@@ -1,0 +1,38 @@
+{% extends "users/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <h1>CoursePage</h1>
+    <div class="border-top pt-4">
+        <h1>{{ title }}</h1>
+        {% if user.is_student %}
+            {% for course in user.student_profile.courses.all %}
+                {% if title == course.course_code %}
+                    <h2>{{ course.name }}</h2>
+                    <br>
+                    <h3>Student Grades</h3>
+                    {% for exam in course.exams_set.all %}
+                        <div class="border-top pt-3">
+                            {% for u in exam.studentgrade_set.all %}
+                                {% if u.student.user == user %}
+                                    <h3>{{ exam.name }}</h3>
+                                    <p>Marks Obtained : {{ u.marks_obtained }}</p>
+                                    <p>Maximum Marks : {{ u.max_marks }}</p>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    </div>
+    <div class="border-top pt-4">
+        {% if user.is_instructor %}
+            {% for course in user.student_profile.courses.all %}
+                {% if title == course.course_code %}
+                    <h3>For Instructors</h3>
+                    <p>**Will make a student marks pdf to be downloaded or something like that**</p>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    </div>
+{% endblock content %}

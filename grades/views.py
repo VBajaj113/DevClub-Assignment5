@@ -1,3 +1,5 @@
 from django.shortcuts import render
 
-# Create your views here.
+
+def coursepage(request, course_title):
+    return render(request, 'grades/coursepage.html', {'title':course_title})

@@ -19,7 +19,7 @@ class Departments(models.Model):
 class Programme(models.Model):
     name = models.CharField(max_length=100, null=True, default="")
     department = models.ForeignKey(Departments, null=True, on_delete=models.CASCADE)
-    programme_code = models.CharField(max_length=5, null=True, default="")
+    programme_code = models.CharField(max_length=5, null=True, default="", unique=True)
 
     class Meta:
         verbose_name = 'Programme'
@@ -31,7 +31,7 @@ class Programme(models.Model):
 
 class Courses(models.Model):
     name = models.CharField(max_length=100, null=True, default='')
-    course_code = models.CharField(max_length=10, null=True, default='')
+    course_code = models.CharField(max_length=10, null=True, default='', unique=True)
 
     class Meta:
         verbose_name = 'Course'
