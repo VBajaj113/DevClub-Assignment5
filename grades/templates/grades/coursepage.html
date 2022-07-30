@@ -49,6 +49,7 @@
                     <h3>For Instructors</h3>
                     <p>**Will make a student marks pdf to be downloaded or something like that**</p>
                     <h4>Documents Uploaded</h4>
+                    <h6><a href="{% url 'edit_documents' %}">Edit Uploaded Documents</a></h6>
                     <div class="border-top pt-2">
                         {% for document in course.documents_set.all %}
                             <a href="{{ document.doc.url }}"><h5>{{ document.name }}</h5></a>
