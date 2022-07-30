@@ -26,8 +26,10 @@
                                     {% for u in exam.studentgrade_set.all %}
                                         {% if u.student.user == user %}
                                             <h5>{{ exam.name }}</h5>
-                                            <p>Marks Obtained : {{ u.marks_obtained }}</p>
-                                            <p>Maximum Marks : {{ exam.max_marks }}</p>
+                                                <!-- <p>**Correct this a bit**</p> -->
+                                                <p>Submission Deadline: {{ exam.last_date }}</p>
+                                                <p>Marks Obtained : {{ u.marks_obtained }}</p>
+                                                <p>Maximum Marks : {{ exam.max_marks }}</p>
                                             {{ break }}
                                         {% endif %}
                                     {% endfor %}
