@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.dispatch import receiver
 from PIL import Image
+from dal import autocomplete
 
 
 class Departments(models.Model):
@@ -50,7 +51,7 @@ class User(AbstractUser):
     is_student = models.BooleanField(default=False)
     is_instructor = models.BooleanField(default=False)
     department = models.ForeignKey(Departments, null=True, on_delete=models.SET_NULL)
-    avatar = models.ImageField(default='default.jpg', upload_to='profile_pics')
+    avatar = models.ImageField(default='default.png', upload_to='profile_pics')
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['name']

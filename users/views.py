@@ -70,6 +70,7 @@ def InstructorSignUp(request):
 
 @login_required
 def profile(request):
+    #remove p_form if have time
     if request.method == 'POST':
         u_form = UserProfileForm(request.POST, instance=request.user)
         if request.user.is_student:
@@ -79,11 +80,18 @@ def profile(request):
         
         if u_form.is_valid() and p_form.is_valid():
             user = u_form.save(commit=False)
-            password = u_form.cleaned_data.get('password')
+            new_password = u_form.cleaned_data.get('new_password')
+            old_password = u_form.cleaned_data.get('old_password')
             user.username = user.email.split('@')[0]
             user.first_name = user.name.split()[0]
             user.last_name = user.name.split()[-1]
-            user.set_password(password)
+
+            if user.check_password(old_password):
+                user.set_password(new_password)
+            else:
+                messages.error(request, f'Your password was incorrect!')
+                return redirect('profile')
+            
             try:
                 user.avatar = request.FILES['avatar']
                 user.save()

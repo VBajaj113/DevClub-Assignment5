@@ -21,10 +21,11 @@ from django.conf.urls.static import static
 from users import views as user_views
 from grades import views as grade_views
 from documents import views as doc_views
+from dal import autocomplete
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls, name='admin'),
     path('register/', user_views.register, name='register'),
     path('register/student', user_views.StudentSignUp, name='student_sign_up'),
     path('register/instructor', user_views.InstructorSignUp, name='instructor_sign_up'),
@@ -37,6 +38,7 @@ urlpatterns = [
     path('', user_views.homepage, name='home'),
     path('about/', user_views.about, name='about'),
     path('course/<slug:course_title>/', grade_views.coursepage, name='course_page'),
+    path('course/<slug:course_title>/grades/', grade_views.studentsgrades, name='students_grades'),
     path('upload-documents/', doc_views.DocumentsUpload, name='documents_upload'),
 ]
 

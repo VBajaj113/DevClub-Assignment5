@@ -31,18 +31,33 @@ class UserForm(ModelForm):
 class StudentProfileForm(ModelForm):
     class Meta:
         model = StudentProfile
-        fields = ['programme', 'kerberos_id', 'courses']
+        fields = []
 
 
 class InstructorProfileForm(ModelForm):
     class Meta:
         model = InstructorProfile
-        fields = ['courses', 'is_head_of_department']
+        fields = []
 
 
 class UserProfileForm(ModelForm):
-    password = forms.CharField(widget=forms.PasswordInput())
-    confirm_password=forms.CharField(widget=forms.PasswordInput())
+    old_password = forms.CharField(widget=forms.PasswordInput())
+    new_password = forms.CharField(widget=forms.PasswordInput())
+    confirm_new_password=forms.CharField(widget=forms.PasswordInput())
+    
     class Meta:
         model = User
-        fields = ['name', 'email', 'password', 'confirm_password', 'avatar', 'department', ]
+        fields = ['email', 'old_password', 'new_password', 'confirm_new_password', 'avatar',]
+    
+    def clean(self):
+        cleaned_data = super(UserProfileForm, self).clean()
+        old_password = cleaned_data.get("old_password")
+        new_password = cleaned_data.get("new_password")
+        confirm_new_password = cleaned_data.get("confirm_new_password")
+
+        if new_password != confirm_new_password:
+            self.add_error('confirm_new_password', "Password does not match")
+        
+        validate_password(new_password)
+
+        return cleaned_data

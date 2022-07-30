@@ -4,11 +4,50 @@
     <div class="content-section">
         <div class="media">
             <div class="profile-card text-center shadow bg-light p-4 my-5 rounded-3">
-                <div class="profile-photo shadow">
-                    <img src="{{ user.avatar.url }}" class="image-fluid image-thumbnail rounded-circle account-img">
-                    <div class="media-body">
-                        <h2 class="account-heading">{{ user.name }}</h2>
-                        <p class="text-secondary">{{ user.email }}</p>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="profile-photo shadow">
+                            <br>
+                            <img src="{{ user.avatar.url }}" class="image-fluid image-thumbnail rounded-circle account-img">
+                            <div class="media-body">
+                                <h2 class="account-heading">{{ user.name }}</h2>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="profile-photo shadow p-3" align='left'>
+                            <div class="media-body">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <h3 class="account-heading">Name:</h3>
+                                        <h4>{{ user.name }}</h4>
+                                        <br>
+                                        <h3 class="account-heading">E-mail:</h3>
+                                        <h4>{{ user.email }}</h4>
+                                        <br>
+                                        {% if user.is_student %}
+                                            <h3 class="account-heading">Kerberos ID:</h3>
+                                            <h4>{{ user.student_profile.kerberos_id }}</h4>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <h3 class="account-heading">Department:</h3>
+                                        <h4>{{ user.department }}</h4>
+                                        {% if user.is_instructor %}
+                                            {% if user.instructor_profile.is_head_of_department %}
+                                                <h5 class="account-heading">(HOD)</h5>
+                                            {% endif %}
+                                        {% endif %}
+                                        <br>
+                                        {% if user.is_student %}
+                                            <h3 class="account-heading">Programme:</h3>
+                                            <h4>{{ user.student_profile.programme }}</h4>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

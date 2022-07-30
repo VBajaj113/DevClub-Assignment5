@@ -9,28 +9,54 @@
                 {% if title == course.course_code %}
                     <h3>{{ course.name }}</h3>
                     <br>
-                    <h4>Student Grades</h4>
-                    {% for exam in course.exams_set.all %}
-                        <div class="border-top pt-3">
-                            {% for u in exam.studentgrade_set.all %}
-                                {% if u.student.user == user %}
-                                    <h5>{{ exam.name }}</h5>
-                                    <p>Marks Obtained : {{ u.marks_obtained }}</p>
-                                    <p>Maximum Marks : {{ u.max_marks }}</p>
-                                {% endif %}
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <h4>Lecture Notes/Study Material</h4>
+                            <div class="border-top pt-2">
+                                {% for document in course.documents_set.all %}
+                                    <a href="{{ document.doc.url }}"><h5>{{ document.name }}</h5></a>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <h4>Student Grades</h4>
+                            {% for exam in course.exams_set.all %}
+                                <div class="border-top pt-3">
+                                    {% for u in exam.studentgrade_set.all %}
+                                        {% if u.student.user == user %}
+                                            <h5>{{ exam.name }}</h5>
+                                            <p>Marks Obtained : {{ u.marks_obtained }}</p>
+                                            <p>Maximum Marks : {{ u.max_marks }}</p>
+                                            {{ break }}
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
                             {% endfor %}
                         </div>
-                    {% endfor %}
+                    </div>
+                    {{ break }}
                 {% endif %}
             {% endfor %}
         {% endif %}
     </div>
+    <br>
     <div class="border-top pt-4">
         {% if user.is_instructor %}
-            {% for course in user.student_profile.courses.all %}
+            {% for course in user.instructor_profile.courses.all %}
                 {% if title == course.course_code %}
+                    
                     <h3>For Instructors</h3>
                     <p>**Will make a student marks pdf to be downloaded or something like that**</p>
+                    <h4>Documents Uploaded</h4>
+                    <div class="border-top pt-2">
+                        {% for document in course.documents_set.all %}
+                            <a href="{{ document.doc.url }}"><h5>{{ document.name }}</h5></a>
+                        {% endfor %}
+                    </div>
+                    <br>
+                    <a href="grades"><h4>View Student's Grades</h4></a>
+                    {{ break }}
                 {% endif %}
             {% endfor %}
         {% endif %}

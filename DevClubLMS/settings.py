@@ -32,6 +32,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # 'dal',
+    # 'dal_select2',    for autocomplete
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
