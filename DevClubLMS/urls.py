@@ -39,6 +39,7 @@ urlpatterns = [
     path('about/', user_views.about, name='about'),
     path('course/<slug:course_title>/', grade_views.coursepage, name='course_page'),
     path('course/<slug:course_title>/grades/', grade_views.studentsgrades, name='students_grades'),
+    path('edit-grades/', grade_views.EditGradesRequest, name='edit_grades'),
     path('upload-documents/', doc_views.DocumentsUpload, name='documents_upload'),
 ]
 

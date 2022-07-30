@@ -27,7 +27,7 @@
                                         {% if u.student.user == user %}
                                             <h5>{{ exam.name }}</h5>
                                             <p>Marks Obtained : {{ u.marks_obtained }}</p>
-                                            <p>Maximum Marks : {{ u.max_marks }}</p>
+                                            <p>Maximum Marks : {{ exam.max_marks }}</p>
                                             {{ break }}
                                         {% endif %}
                                     {% endfor %}

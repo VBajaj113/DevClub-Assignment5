@@ -3,6 +3,7 @@
 {% block content %}
     <h1>{{ title }} Grades</h1>
     <div class="border-top pt-4">
+        <h2><a href="{% url 'edit_grades' %}">Edit</a></h2>
         {% for course in user.instructor_profile.courses.all %}
             {% if course.course_code == title %}
                 {% for exam in course.exams_set.all %}
@@ -14,11 +15,14 @@
                         <div class="col-sm-3">
                             <h3>Name</h3>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-2">
                             <h3>Marks Obtained</h3>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-2">
                             <h3>Maximum Marks</h3>
+                        </div>
+                        <div class="col-sm-2">
+                            <h3>Grade</h3>
                         </div>
                     </div>
                     <div class="border-bottom pt-2">
@@ -32,11 +36,14 @@
                                 </div>
                                 {% for u in exam.studentgrade_set.all %}
                                     {% if u.student.user == student.user %}
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-2">
                                             <h4>{{ u.marks_obtained }}</h4>
                                         </div>
-                                        <div class="col-sm-3">
-                                            <h4>{{ u.max_marks }}</h4>
+                                        <div class="col-sm-2">
+                                            <h4>{{ exam.max_marks }}</h4>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <h4>{{ u.grade }}</h4>
                                         </div>
                                         {{ break }}
                                     {% endif %}
