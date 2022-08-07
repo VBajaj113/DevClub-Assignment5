@@ -11,7 +11,7 @@
                     <br>
 
                     <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col-sm-4">
                             <h4>Lecture Notes/Study Material</h4>
                             <div class="border-top pt-2">
                                 {% for document in course.documents_set.all %}
@@ -19,7 +19,7 @@
                                 {% endfor %}
                             </div>
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-4">
                             <h4>Student Grades</h4>
                             {% for exam in course.exams_set.all %}
                                 <div class="border-top pt-3">
@@ -36,6 +36,13 @@
                                 </div>
                             {% endfor %}
                         </div>
+                        <div class="col-sm-4">
+                            <h4>Announcements</h4>
+                            <div class="border-top pt-2">
+                            {% for announcement in course.announcements_set.all %}
+                                <a href="announcement/{{ announcement.title }}"><h5>{{ announcement.title }}</h5></a>
+                            {% endfor %}
+                        </div>
                     </div>
                     {{ break }}
                 {% endif %}
@@ -50,15 +57,29 @@
                     
                     <h3>For Instructors</h3>
                     <p>**Will make a student marks pdf to be downloaded or something like that**</p>
-                    <h4>Documents Uploaded</h4>
-                    <h6><a href="{% url 'edit_documents' %}">Edit Uploaded Documents</a></h6>
-                    <div class="border-top pt-2">
-                        {% for document in course.documents_set.all %}
-                            <a href="{{ document.doc.url }}"><h5>{{ document.name }}</h5></a>
-                        {% endfor %}
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <h4>Documents Uploaded</h4>
+                            <h6><a href="{% url 'edit_documents' %}">Edit Uploaded Documents</a></h6>
+                            <div class="border-top pt-2">
+                                {% for document in course.documents_set.all %}
+                                    <a href="{{ document.doc.url }}"><h5>{{ document.name }}</h5></a>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <h4>Announcements</h4>
+                            <h6><a href="{% url 'edit_announcement' %}">Edit Announcement</a></h6>
+                            <div class="border-top pt-2">
+                                {% for announcement in course.announcements_set.all %}
+                                    <a href="announcement/{{ announcement.title }}"><h5>{{ announcement.title }}</h5></a>
+                                {% endfor %}
+                            </div>
+                        </div>
                     </div>
                     <br>
                     <a href="grades"><h4>View Student's Grades</h4></a>
+                    <a href="add-announcement"><h4>Add Announcement</h4></a>
                     {{ break }}
                 {% endif %}
             {% endfor %}

@@ -1,0 +1,18 @@
+{% extends "users/base.html" %}
+{% block content %}
+    <div class="content-section">
+        <h1>Announcement</h1><br>
+        {% for course in user.student_profile.courses.all %}
+            {% if course.course_code == course_title %}
+                <h2>{{ course.course_code }}</h2>
+                <h3>{{ course.name }}</h3><br>
+                {% for announcement in course.announcements_set.all %}
+                    {% if announcement.title == announcement_title %}
+                        <h4>{{ announcement.title }}</h4>
+                        <p>{{ announcement.announcement }}</p>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endblock content %}

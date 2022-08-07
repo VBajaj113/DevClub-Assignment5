@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'grades.apps.GradesConfig',
     'documents.apps.DocumentsConfig',
+    'communication.apps.CommunicationConfig',
     "crispy_forms",
     "crispy_bootstrap5",
 ]
